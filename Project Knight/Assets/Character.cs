@@ -5,21 +5,26 @@ using DG.Tweening;
 
 public class Character : MonoBehaviour
 {
-	[SerializeField]
-	private float moveTime;
+	public float speed { get; set; }
 
-    public void Attack()
-    {
+    public virtual void Attack()
+	{
 		//에니메이션 재생
 		//게임매니저의 체력바 깎기
 	}
 
-	public void Move(int posX)
+	public virtual void Move(int posX)
 	{
-		transform.DOMoveX(posX, moveTime);
+		if (speed == 0.0f)
+			return;
+
+		float s = posX - transform.position.x;
+		if (s < 0f) { s *= -1.0f; }
+		float t = s / speed;
+		transform.DOMoveX(posX, t);
 	}
 
-	public void Die()
+	public virtual void Die()
 	{
 		GameObject.Destroy(gameObject);
 		//에니메이션 재생
