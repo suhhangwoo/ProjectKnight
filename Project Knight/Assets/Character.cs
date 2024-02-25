@@ -26,7 +26,8 @@ public class Character : MonoBehaviour
 
 	public virtual void Die()
 	{
-		GameObject.Destroy(gameObject);
+		gameObject.SetActive(false);
+		//GameObject.Destroy(gameObject);
 		//에니메이션 재생
 	}
 }
