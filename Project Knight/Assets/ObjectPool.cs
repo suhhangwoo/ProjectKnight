@@ -11,7 +11,7 @@ public class ObjectPool : MonoBehaviour
 
 	private List<GameObject> listPool;
 
-	public void Init()
+	private void Init()
 	{
 		listPool = new List<GameObject>();
 
