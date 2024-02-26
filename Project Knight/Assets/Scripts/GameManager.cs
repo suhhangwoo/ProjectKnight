@@ -6,6 +6,8 @@ public enum Side { Left, Right };
 
 public class GameManager : Singleton<GameManager>
 {
+    private const int RIGHT_START_INDEX = 4;
+
     [SerializeField]
     private int[,] soldierNumber;
     [SerializeField]
@@ -18,12 +20,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Sprite sprite;
 
-    private const int RIGHT_START_INDEX = 4;
-
     private void Start()
     {
         soldierNumber = new int[4, 2];
-        //attackIndex = new int[2];
+        attackIndex = new int[2];
         leftSoldierFrameList = new List<SoldierFrame>();
         rightSoldierFrameList = new List<SoldierFrame>();
 
@@ -36,11 +36,11 @@ public class GameManager : Singleton<GameManager>
         }
         for (int i = 0; i < leftSoldierFrameList.Count; i++)
         {
-            leftSoldierFrameList[i].Init(1000, sprite, "창병");
+            leftSoldierFrameList[i].Init(soldierNumber[i, (int)Side.Left], sprite, "창병");
         }
         for (int i = 0; i < rightSoldierFrameList.Count; i++)
         {
-            rightSoldierFrameList[i].Init(1000, sprite, "창병");
+            rightSoldierFrameList[i].Init(soldierNumber[i, (int)Side.Right], sprite, "창병");
         }
     }
 

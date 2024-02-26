@@ -28,5 +28,6 @@ public class SoldierFrame : MonoBehaviour
     {
         float curHp = Mathf.Max(maxHp - totalDamage, 0f);
         hpBar.fillAmount = curHp / maxHp;
+        unitNumber.text = curHp.ToString();
     }
 }
