@@ -14,13 +14,15 @@ public class Soldier : MonoBehaviour
     public float Speed { get; set; }
 
     private Soldier AttackTarget { get; set; } = null;
-
-    public void Initialize(int hp, int damage, int moraleDamage, float speed)
+    private Rigidbody2D rb = null;
+    public virtual void Initialize(int hp, int damage, int moraleDamage, float speed)
     {
         this.Hp = hp;
         this.Damage = damage;
         this.MoraleDamage = moraleDamage;
         this.Speed = speed;
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
     }
 
     public void SetAttactTarget(Soldier target)
@@ -47,16 +49,18 @@ public class Soldier : MonoBehaviour
         transform.DOMoveX(posX, t);
     }
 
-    private void Die()
+    public virtual void Die()
     {
         //에니메이션 재생
-        float targetX = 50f;
+        float targetX = 10f;
         if (transform.position.x < 0f)
         { targetX *= -1f; }
 
+        rb.AddForce(new Vector2(150, 300));
+        rb.gravityScale = 1;
         DG.Tweening.Sequence sq = DOTween.Sequence();
         sq.SetAutoKill()
-            .Append(transform.DOMove(new Vector3(targetX, 50f), 1f))
+            .SetDelay(2f)
             .AppendCallback(SetActiveFalse);
         
         //체력바 깎기 -100

@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class SwordMan : Soldier
 {
+    private Animator anim = null;
+
+    public override void Initialize(int hp, int damage, int moraleDamage, float speed)
+    {
+        base.Initialize(hp, damage, moraleDamage, speed);
+        anim = GetComponent<Animator>();
+    }
+
     public override void Attack()
     {
         base.Attack();
@@ -14,8 +22,14 @@ public class SwordMan : Soldier
         base.Move(posX);
     }
 
+    public override void Die()
+    {
+        base.Die();
+        anim.SetTrigger("Death");
+    }
+
     private void Start()
     {
-
+        Initialize(5, 5, 5, 5);
     }
 }
